@@ -2,7 +2,7 @@ package com.xyf.common.video
 
 import com.google.gson.Gson
 import com.xyf.common.annotation.WorkThread
-import com.xyf.common.util.SystemUtils2
+import com.xyf.common.util.SystemUtils
 import com.xyf.common.video.bean.VideoInfoBean
 import org.apache.commons.lang3.StringUtils
 import java.io.File
@@ -13,7 +13,7 @@ object VideoUtils {
     @WorkThread
     @Throws(Exception::class)
     fun getVideoInfo(video: File): VideoInfoBean {
-        val result = SystemUtils2.execute("ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", "-show_streams", video.absolutePath)
+        val result = SystemUtils.execute("ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", "-show_streams", video.absolutePath)
         return Gson().fromJson(StringUtils.join<Any>(*result.toTypedArray()), VideoInfoBean::class.java)
     }
 

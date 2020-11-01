@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.bajingxiaozi:common:-SNAPSHOT'
+    compile 'com.github.bajingxiaozi:common2:-SNAPSHOT'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
