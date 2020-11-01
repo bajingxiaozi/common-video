@@ -9,7 +9,7 @@ import java.io.File
 import java.util.*
 import java.util.regex.Pattern
 
-object FfmpegUtils {
+object VideoUtils {
 
     @WorkThread
     @Throws(Exception::class)
