@@ -13,7 +13,7 @@ object FfmpegUtils {
 
     @WorkThread
     @Throws(Exception::class)
-    fun getInfo(video: File): VideoInfoBean {
+    fun getVideoInfo(video: File): VideoInfoBean {
         val result = SystemUtils2.execute("ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", "-show_streams", video.absolutePath)
         return Gson().fromJson(StringUtils.join<Any>(*result.toTypedArray()), VideoInfoBean::class.java)
     }
@@ -21,7 +21,7 @@ object FfmpegUtils {
     @WorkThread
     @Throws(Exception::class)
     fun getFrameCount(video: File): Int {
-        val videoInfo = getInfo(video)
+        val videoInfo = getVideoInfo(video)
         val duration = videoInfo.format!!.duration!!.toDouble()
         val fpsString = videoInfo.streams!![0]!!.rFrameRate
         val matcher = FPS_PATTERN.matcher(fpsString)
@@ -36,12 +36,12 @@ object FfmpegUtils {
 
     @WorkThread
     fun videoFilter(video: File, scale: Int): List<String> {
-        return Arrays.asList("com/xyf/common/video", "-i", video.absolutePath, "-vf", "scale=$scale:$scale,transpose=1")
+        return listOf("ffmpeg", "-i", video.absolutePath, "-vf", "scale=$scale:$scale,transpose=1")
     }
 
     private val FRAME_PATTERN = Pattern.compile("^frame=(?<frame>[ 0-9]+)fps.*")
 
-    fun parseFrame(message: String?): Int {
+    fun parseFrame(message: String): Int {
         val matcher = FRAME_PATTERN.matcher(message)
         if (matcher.matches()) {
             val frame = matcher.group("frame")

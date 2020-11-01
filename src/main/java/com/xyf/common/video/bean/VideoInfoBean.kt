@@ -11,6 +11,7 @@ class VideoInfoBean {
     var streams: List<StreamsBean?>? = null
 
     class FormatBean {
+
         @SerializedName("filename")
         var filename: String? = null
 
