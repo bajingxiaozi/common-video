@@ -1,0 +1,21 @@
+# pom
+*.iml
+
+# mac
+.DS_Store
+
+# gradle
+.gradle
+gradlew
+gradlew.bat
+/build
+/out
+
+# idea
+/.idea
+
+# 其他
+/captures
+.externalNativeBuild
+/local.properties
+/target
