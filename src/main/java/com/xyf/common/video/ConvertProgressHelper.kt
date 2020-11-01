@@ -1,12 +1,14 @@
 package com.xyf.common.video
 
+import com.xyf.common.annotation.UiThread
 import java.io.File
 import java.util.*
 
-class ConvertProgressHelper(private val file: File) {
+class ConvertProgressHelper(file: File) {
 
     private val totalFrame = VideoUtils.getFrameCount(file)
 
+    @UiThread
     fun tick(message: String) {
         if (progresses.size > COUNT) {
             progresses.removeFirst()
