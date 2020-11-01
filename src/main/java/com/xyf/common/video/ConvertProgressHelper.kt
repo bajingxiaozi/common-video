@@ -20,13 +20,31 @@ class ConvertProgressHelper(file: File) {
     /**
      * 帧/秒
      */
-    val speed: Double
+    private val speed: Double
         get() {
             if (progresses.size < COUNT) {
                 return 0.0
             }
 
             return 1000.0 * (progresses.last.frame - progresses.first.frame) / (progresses.last.time - progresses.first.time)
+        }
+
+    val progress: Double
+        get() {
+            if (progresses.isEmpty()) {
+                return -1.0
+            }
+
+            return 1.0 * progresses.last.frame / totalFrame
+        }
+
+    val leftTime: Int
+        get() {
+            if (progresses.isEmpty()) {
+                return -1
+            }
+
+            return ((totalFrame - progresses.last.frame) / speed).toInt()
         }
 
     /**
