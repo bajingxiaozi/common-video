@@ -6,7 +6,6 @@ import com.xyf.common.util.SystemUtils2
 import com.xyf.common.video.bean.VideoInfoBean
 import org.apache.commons.lang3.StringUtils
 import java.io.File
-import java.util.*
 import java.util.regex.Pattern
 
 object VideoUtils {
@@ -41,7 +40,7 @@ object VideoUtils {
 
     private val FRAME_PATTERN = Pattern.compile("^frame=(?<frame>[ 0-9]+)fps.*")
 
-    fun parseFrame(message: String): Int {
+    fun getFrameIndex(message: String): Int {
         val matcher = FRAME_PATTERN.matcher(message)
         if (matcher.matches()) {
             val frame = matcher.group("frame")
