@@ -27,8 +27,8 @@ class ConvertProgressHelper(file: File) {
      */
     private val speed: Double
         get() {
-            if (progresses.size < COUNT) {
-                return 0.0
+            if (progresses.size <= 1) {
+                return -1.0
             }
 
             return 1000.0 * (progresses.last.frame - progresses.first.frame) / (progresses.last.time - progresses.first.time)
