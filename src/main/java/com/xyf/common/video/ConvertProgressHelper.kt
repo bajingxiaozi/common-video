@@ -10,11 +10,16 @@ class ConvertProgressHelper(file: File) {
 
     @UiThread
     fun tick(message: String) {
+        val frameIndex = VideoUtils.getFrameIndex(message)
+        if (frameIndex < 0) {
+            return
+        }
+
         if (progresses.size > COUNT) {
             progresses.removeFirst()
         }
 
-        progresses.addLast(Progress(VideoUtils.getFrameIndex(message)))
+        progresses.addLast(Progress(frameIndex))
     }
 
     /**
@@ -53,7 +58,7 @@ class ConvertProgressHelper(file: File) {
     private val progresses = LinkedList<Progress>()
 
     private companion object {
-        const val COUNT = 10
+        const val COUNT = 5
     }
 
     private data class Progress(val frame: Int, val time: Long = System.currentTimeMillis())
